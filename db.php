@@ -7,7 +7,7 @@ $pass = 'W1TC6p5syYHXpgXdLi5k';
 $port = '3306';
 
 try {
-    $dsn = "mysql:host=$host;port=$port;dbname=$db;charset=utf8mb4";
+    $dsn = "mysql:host=b3q2bwopggb0l4rebljf-mysql.services.clever-cloud.com;port=3306;dbname=b3q2bwopggb0l4rebljf;charset=utf8mb4";
     $pdo = new PDO($dsn, $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
