@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: pop-games-web
+    env: php
+    plan: free
+    buildCommand: ""
+    startCommand: ""
