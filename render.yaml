@@ -4,4 +4,4 @@ services:
     env: php
     plan: free
     buildCommand: ""
-    startCommand: ""
+    startCommand: apache2-foreground
