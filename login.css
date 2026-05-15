@@ -1,0 +1,49 @@
+body {
+    font-family: Arial;
+    background: #222;
+    color: #eee;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.login-box {
+    background:#333;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 10px #000;
+}
+
+input {
+    display:block;
+    margin:10px 0;
+    padding:8px;
+    width:100%;
+    border-radius:5px;
+    border:none;
+}
+
+input[type=submit] {
+    background:#f90;
+    color:#000;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.error {
+    color:#f44;
+}
+
+.registro-link p {
+    margin-bottom: 5px;
+}
+
+.registro-link a {
+    transition: color 0.3s;
+}
+
+.registro-link a:hover {
+    color: #e68a00; /* Un naranja un poco más oscuro al pasar el ratón */
+    text-decoration: underline;
+}

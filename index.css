@@ -1,0 +1,214 @@
+html, body {
+    height: 100%;
+    margin:0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background:#121212;
+    color:#eee;
+    display:flex;
+    flex-direction:column;
+}
+
+.header {
+    background:#1e1e1e;
+    padding:15px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom: 2px solid #222;
+}
+
+.menu a {
+    margin-right:15px;
+    color:#f90;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+.menu a:hover { text-decoration:underline; }
+
+.container {
+    padding:20px 30px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+    align-items:flex-start;
+    position:relative;
+}
+
+.container.detalle-container {
+    flex-wrap:nowrap;
+    gap:20px;
+}
+
+/* Tarjetas y Contenedores */
+.juego, .detalle, .comentarios-container, .similares-container {
+    background:#1e1e1e;
+    border-radius:12px;
+    border: 1px solid #333;
+}
+
+.juego {
+    width:200px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    padding:15px;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.juego:hover { 
+    transform: scale(1.05); 
+    border-color: #f90;
+}
+
+.juego img, .detalle img {
+    width:100%;
+    border-radius:8px;
+    margin-bottom:10px;
+    object-fit:cover;
+}
+
+.juego img { height:100px; }
+
+.juego a {
+    color:#f90;
+    text-decoration:none;
+}
+
+.detalle {
+    width:400px;
+    padding:20px;
+}
+
+.detalle h2 { margin-top: 0; color: #f90; }
+.detalle p { line-height:1.6; }
+
+.back {
+    display:inline-block;
+    margin-top:20px;
+    padding:8px 16px;
+    background:#f90;
+    color:#000;
+    border-radius:6px;
+    text-decoration:none;
+    font-weight: bold;
+}
+
+/* --- SECCIÓN DE COMENTARIOS --- */
+.comentarios-container {
+    flex:1;
+    max-width:450px;
+    padding:20px;
+    max-height:600px;
+    overflow-y:auto;
+}
+
+.comentario {
+    margin-bottom:15px;
+    padding-bottom:15px;
+    border-bottom:1px solid #333;
+}
+
+/* Nuevos estilos para resaltar usuarios y notas */
+.user-name {
+    color: #ffffff;
+    font-size: 1.05em;
+    font-weight: bold;
+    text-transform: capitalize;
+    border-bottom: 1px solid #f90;
+    padding-bottom: 2px;
+}
+
+.score-badge {
+    background: #f90;
+    color: #000;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-left: 10px;
+    font-size: 0.9em;
+}
+
+.stars-color {
+    color: #ffcc00;
+    letter-spacing: 2px;
+    margin-left: 5px;
+}
+
+.review-text {
+    color: #bbb;
+    margin-top: 10px;
+    font-style: italic;
+    font-size: 0.95em;
+    line-height: 1.4;
+}
+
+/* --- FORMULARIO --- */
+.form-review textarea {
+    width: 100%;
+    background: #121212;
+    border: 1px solid #444;
+    color: #eee;
+    padding: 10px;
+    border-radius: 6px;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+form button {
+    margin-top:10px;
+    padding:10px 20px;
+    background: linear-gradient(45deg, #f90, #ffcc00);
+    border: none;
+    border-radius:8px;
+    color:#000;
+    font-weight:bold;
+    cursor:pointer;
+    transition: 0.2s;
+}
+
+form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255,153,0,0.4);
+}
+
+/* --- GALERÍA --- */
+.galeria-container{
+    margin-top:20px;
+}
+
+.galeria{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:15px;
+}
+
+.galeria img{
+    width:100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius:8px;
+    transition:0.3s;
+    border: 1px solid #333;
+}
+
+.galeria img:hover{
+    transform:scale(1.03);
+    border-color: #f90;
+}
+
+footer {
+    background:#1e1e1e;
+    text-align:center;
+    padding:20px;
+    color:#777;
+    margin-top:auto;
+    border-top: 1px solid #333;
+}
+
+/* Scrollbar personalizado para el modo oscuro */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #121212; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #f90; }
