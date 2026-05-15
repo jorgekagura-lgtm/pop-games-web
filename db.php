@@ -1,22 +1,20 @@
 <?php
-$host = trim(getenv('DB_HOST'));
-$db   = trim(getenv('DB_NAME'));
-$user = trim(getenv('DB_USER'));
-$pass = trim(getenv('DB_PASS'));
-
-// Esto nos ayudará a ver si Render está cargando bien las variables
-if (empty($host)) {
-    die("Error: El Host de la base de datos está vacío en las variables de entorno.");
-}
+// Ponemos los datos reales directamente para evitar el bloqueo de getenv en Docker
+$host = 'b3q2bwopggb0l4rebljf-mysql.services.clever-cloud.com';
+$db   = 'b3q2bwopggb0l4rebljf';
+$user = 'usvodfulqfnmchzk';
+$pass = 'W1TC6p5syYHXpgXdLi5k';
+$port = '3306';
 
 try {
-    // Intentamos la conexión
-    $dsn = "mysql:host=$host;port=3306;dbname=$db;charset=utf8mb4";
+    $dsn = "mysql:host=$host;port=$port;dbname=$db;charset=utf8mb4";
     $pdo = new PDO($dsn, $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    // Si llega aquí, es que ha funcionado
+    
+    // Si quieres comprobar que conecta bien, puedes descomentar la siguiente línea:
+    // echo "¡Conexión de servidor exitosa!";
+    
 } catch (PDOException $e) {
-    // Imprime el error detallado
-    die("Fallo de conexión en el servidor: " . $e->getMessage() . " | Host intentado: " . $host);
+    die("Error crítico de conexión en la nube: " . $e->getMessage());
 }
 ?>
