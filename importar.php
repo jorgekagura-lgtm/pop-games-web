@@ -1,52 +1,56 @@
 <?php
-$host = 'dpg-cu76b65u9vis73cm4t00-a.frankfurt-postgres.render.com'; 
-$db   = 'popgames_db';
-$user = 'jorge';
-$pass = 'Uunf62DbeQeBwVpGptgT0X1K9p1N4v4m';
-$port = '5432';
+$host = 'b3q2bwopggb014rebljf-mysql.services.clever-cloud.com'; 
+$db   = 'b3q2bwopggb014rebljf';
+$user = 'usvodfulqfnmchzk';
+$pass = 'W1TC6p5syYHXPgXdLi5k';
+$port = '3306';
 
 try {
-    $pdo = new PDO("pgsql:host=$host;port=$port;dbname=$db", $user, $pass);
+    $pdo = new PDO("mysql:host=$host;port=$port;dbname=$db;charset=utf8mb4", $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Tablas adaptadas a la sintaxis exacta de PostgreSQL
     $query = "
-    CREATE TABLE IF NOT EXISTS juegos (
-      id SERIAL PRIMARY KEY,
-      nombre varchar(100) NOT NULL,
-      genero varchar(50) DEFAULT NULL,
-      descripcion text,
-      imagen varchar(255) DEFAULT NULL,
-      galeria text
-    );
+    CREATE TABLE IF NOT EXISTS `juegos` (
+      `id` int NOT NULL AUTO_INCREMENT,
+      `nombre` varchar(100) NOT NULL,
+      `genero` varchar(50) DEFAULT NULL,
+      `descripcion` text,
+      `imagen` varchar(255) DEFAULT NULL,
+      `galeria` text,
+      PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-    CREATE TABLE IF NOT EXISTS usuarios (
-      id SERIAL PRIMARY KEY,
-      username varchar(50) NOT NULL UNIQUE,
-      password varchar(255) NOT NULL,
-      nombre_completo varchar(100) DEFAULT NULL,
-      apellido_completo varchar(100) DEFAULT NULL,
-      correo varchar(100) DEFAULT NULL UNIQUE,
-      codigo_verificacion varchar(10) DEFAULT NULL,
-      verificado smallint DEFAULT '0'
-    );
+    CREATE TABLE IF NOT EXISTS `usuarios` (
+      `id` int NOT NULL AUTO_INCREMENT,
+      `username` varchar(50) NOT NULL,
+      `password` varchar(255) NOT NULL,
+      `nombre_completo` varchar(100) DEFAULT NULL,
+      `apellido_completo` varchar(100) DEFAULT NULL,
+      `correo` varchar(100) DEFAULT NULL,
+      `codigo_verificacion` varchar(10) DEFAULT NULL,
+      `verificado` tinyint(1) DEFAULT '0',
+      PRIMARY KEY (`id`),
+      UNIQUE KEY `username` (`username`),
+      UNIQUE KEY `correo` (`correo`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-    CREATE TABLE IF NOT EXISTS reviews (
-      id SERIAL PRIMARY KEY,
-      id_juego int NOT NULL,
-      usuario varchar(50) NOT NULL,
-      texto text NOT NULL,
-      calificacion int NOT NULL,
-      fecha timestamp DEFAULT CURRENT_TIMESTAMP,
-      CONSTRAINT reviews_ibfk_1 FOREIGN KEY (id_juego) REFERENCES juegos (id) ON DELETE CASCADE
-    );
+    CREATE TABLE IF NOT EXISTS `reviews` (
+      `id` int NOT NULL AUTO_INCREMENT,
+      `id_juego` int NOT NULL,
+      `usuario` varchar(50) NOT NULL,
+      `texto` text NOT NULL,
+      `calificacion` int NOT NULL,
+      `fecha` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (`id`),
+      KEY `id_juego` (`id_juego`),
+      CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`id_juego`) REFERENCES `juegos` (`id`) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-    -- Insertamos los datos de tus juegos (evitando duplicados si recargas)
-    INSERT INTO juegos (id, nombre, genero, descripcion, imagen, galeria) VALUES
+    REPLACE INTO `juegos` (`id`, `nombre`, `genero`, `descripcion`, `imagen`, `galeria`) VALUES
     (1, 'Zelda: Breath of the Wild', 'Aventura', 'Aventura de mundo abierto donde Link despierta tras 100 años...', 'imagenes/zelda.webp', '[\"imagenes/zelda.webp\",\"imagenes/zelda2.webp\"]'),
     (2, 'Uncharted 4', 'Aventura', 'Nathan Drake regresa a la búsqueda de un legendario tesoro pirata...', 'imagenes/uncharted.webp', '[\"imagenes/uncharted.webp\",\"imagenes/uncharted2.webp\",\"imagenes/uncharted3.webp\",\"imagenes/uncharted4.webp\"]'),
     (3, 'Tomb Raider', 'Aventura', 'Lara Croft debe sobrevivir en una isla hostil tras un naufragio...', 'imagenes/tombraider.webp', '[\"imagenes/tombraider.webp\",\"imagenes/tombraider2.webp\",\"imagenes/tombraider3.webp\",\"imagenes/tombraider4.webp\"]'),
-    (4, 'Assassin''s Creed Valhalla', 'Aventura', 'Controlas a Eivor, un vikingo que lidera a su clan desde Noruega...', 'imagenes/acvalhalla.webp', '[\"imagenes/acvalhalla.webp\",\"imagenes/acvalhalla2.webp\",\"imagenes/acvalhalla3.webp\",\"imagenes/acvalhalla4.webp\"]'),
+    (4, 'Assassin\'s Creed Valhalla', 'Aventura', 'Controlas a Eivor, un vikingo que lidera a su clan desde Noruega...', 'imagenes/acvalhalla.webp', '[\"imagenes/acvalhalla.webp\",\"imagenes/acvalhalla2.webp\",\"imagenes/acvalhalla3.webp\",\"imagenes/acvalhalla4.webp\"]'),
     (5, 'Cyberpunk 2077', 'RPG', 'En Night City encarnas a V, un mercenario que intenta sobrevivir...', 'imagenes/cyberpunk.webp', '[\"imagenes/cyberpunk.webp\",\"imagenes/cyberpunk2.webp\",\"imagenes/cyberpunk3.webp\",\"imagenes/cyberpunk4.webp\"]'),
     (6, 'The Witcher 3', 'RPG', 'Geralt de Rivia recorre un vasto mundo abierto cazando monstruos...', 'imagenes/witcher3.webp', '[\"imagenes/witcher3.webp\",\"imagenes/witcher32.webp\",\"imagenes/witcher33.webp\",\"imagenes/witcher34.webp\"]'),
     (7, 'Persona 5', 'RPG', 'Un estudiante vive una doble vida como ladrón fantasma...', 'imagenes/persona5.webp', '[\"imagenes/persona5.webp\",\"imagenes/persona52.webp\",\"imagenes/persona53.webp\",\"imagenes/persona54.webp\"]'),
@@ -58,23 +62,24 @@ try {
     (13, 'FIFA 23', 'Deportes', 'Simulador de fútbol realista con equipos y ligas oficiales...', 'imagenes/fifa23.webp', '[\"imagenes/fifa23.webp\",\"imagenes/fifa232.webp\",\"imagenes/fifa233.webp\",\"imagenes/fifa234.webp\"]'),
     (14, 'NBA 2K23', 'Deportes', 'Juego de baloncesto que recrea la NBA con gráficos realistas...', 'imagenes/nba2k23.webp', '[\"imagenes/nba2k23.webp\",\"imagenes/nba2k232.webp\",\"imagenes/nba2k233.webp\",\"imagenes/nba2k234.webp\"]'),
     (15, 'Madden NFL 23', 'Deportes', 'Simulador de fútbol americano con equipos oficiales de la NFL...', 'imagenes/madden23.webp', '[\"imagenes/madden23.webp\",\"imagenes/madden232.webp\",\"imagenes/madden233.webp\",\"imagenes/madden234.webp\"]'),
-    (16, 'F1 23', 'Deportes', 'Simulador oficial de Fórmula 1 con todos los circuitos y pilotos...', 'imagenes/f123.webp', '[\"imagenes/f123.webp\",\"imagenes/f1232.webp\",\"imagenes/f1233.webp\",\"imagenes/f1234.webp\"]) ON CONFLICT DO NOTHING;
+    (16, 'F1 23', 'Deportes', 'Simulador oficial de Fórmula 1 con todos los circuitos y pilotos...', 'imagenes/f123.webp', '[\"imagenes/f123.webp\",\"imagenes/f1232.webp\",\"imagenes/f1233.webp\",\"imagenes/f1234.webp\"]);
 
-    INSERT INTO usuarios (id, username, password, nombre_completo, apellido_completo, correo, codigo_verificacion, verificado) VALUES
+    REPLACE INTO `usuarios` (`id`, `username`, `password`, `nombre_completo`, `apellido_completo`, `correo`, `codigo_verificacion`, `verificado`) VALUES
     (1, 'admin', '1234', NULL, NULL, NULL, NULL, 0),
     (2, 'jorge', 'j1234', NULL, NULL, NULL, NULL, 0),
     (3, 'hector', 'h1234', NULL, NULL, NULL, NULL, 0),
-    (4, 'samuel', 's1234', NULL, NULL, NULL, NULL, 0) ON CONFLICT DO NOTHING;
+    (4, 'samuel', 's1234', NULL, NULL, NULL, NULL, 0);
 
-    INSERT INTO reviews (id, id_juego, usuario, texto, calificacion, fecha) VALUES
+    REPLACE INTO `reviews` (`id`, `id_juego`, `usuario`, `texto`, `calificacion`, `fecha`) VALUES
     (1, 1, 'jorge', 'Esta guapo este juego', 10, '2026-05-13 21:37:18'),
-    (2, 1, 'samuel', 'Estoy de acuerdo contigo jorge', 10, '2026-05-13 21:38:40') ON CONFLICT DO NOTHING;
+    (2, 1, 'samuel', 'Estoy de acuerdo contigo jorge', 10, '2026-05-13 21:38:40');
     ";
 
+    $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, 0);
     $pdo->exec($query);
-    echo "<h1 style='color:green; font-family:sans-serif;'>¡POR FIN! Las tablas se han creado con éxito en PostgreSQL.</h1>";
+    echo "<h1 style='color:green; font-family:sans-serif;'>¡BRUTAL! Las tablas se han creado con éxito en Clever Cloud MySQL.</h1>";
 
 } catch (PDOException $e) {
-    echo "<h1 style='color:red; font-family:sans-serif;'>Fallo en Postgres:</h1> " . $e->getMessage();
+    echo "<h1 style='color:red; font-family:sans-serif;'>Fallo en Clever Cloud:</h1> " . $e->getMessage();
 }
 ?>
